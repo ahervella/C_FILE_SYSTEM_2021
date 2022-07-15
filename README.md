@@ -1,5 +1,11 @@
-# A Simple File System
+# C File System - 2021
+This was my final assignment for my Computer Systems class in which we were tasked with creating a filesystem in C using the FUSE filesystem driver! Below is the original assignment instructions. I was very happy with my results, as I recieved an A for the assignment!
 
+
+
+_____________________
+
+# Original Assignment Instructions
 In this assignment you will build a [FUSE](https://en.wikipedia.org/wiki/Filesystem_in_Userspace) filesystem driver that will let you
 mount a 1MB disk image (data file) as a filesystem. The implementation only needs to support files of size <= 4K.
 
@@ -55,53 +61,3 @@ The provided [Makefile](Makefile) should simplify your development cycle. It pro
 - `make test` - run some tests on your implementation. This is a subset of tests we will run on your submission. It should give you an idea whether you are on the right path. You can ignore tests for deleting files if you are not implementing that functionality.
 - `make gdb` - same as `make mount`, but run the filesystem in GDB for debugging
 - `make clean` - remove executables and object files, as well as test logs and the `data.nufs`.
-
-
-## Rubric
-
-The grade is broken down into three categories:
-
-- 70% Functionality and FS design
-  - Based on automatic and manual testing
-  - Does the filesystem correctly and efficiently implement the requested functionality?
-  - Do operations complete in a reasonable time? We put a 30s timeout on most test cases.
-- 30% Style
-  - Via manual code review
-  - Basics: meaningful purpose statements; explanation of arguments and return values
-  - Explicitly stated assumptions
-  - Correct use of types (e.g., not assigning -1 to an unsigned)
-  - Short, understandable functions (generally, < 50 lines)
-  - Consistent indentation and use of whitespace
-  - Explanatory comments for complex blocks of code
-  - No extra binaries (.o, executable files, etc.) or superfluous files committed to your repo
-
-
-## Extra Credit
-
-You can earn extra credit as follows:
-
-- 1% for supporting the delete operation on files
-- 3% for supporting arbitrarily nested directories, including creating, renaming and deleting them, as well as moving files between them
-- 3% for supporting arbitrarily large files which, of course, must fit into the free blocks on disk. This must include proper allocation and deallocation as the file grows or shrinks.
-
-**If you are doing extra credit, submit the extended version to "Assignment 6 EC" on Gradescope.**
-
-## Hints & Tips
-
- - Come to the last lab. We will be talking about how to get started and demoing the starter code.
- - There aren't man pages for FUSE. Instead, the documentation is in the header
-   file: `/usr/include/fuse/fuse.h`
- - The sources for [libfuse](https://github.com/libfuse/libfuse) contains a few further [examples](https://github.com/libfuse/libfuse/tree/master/example). Start with [`hello.c`](https://github.com/libfuse/libfuse/blob/master/example/hello.c).
- - The basic development / testing strategy for this assignment is to run your
-   program (e.g., using `make mount`) in one terminal window and try file system operations on the mounted filesystem in another separate terminal window.
- - Read the manual pages for the system calls you're implementing.
- - To return an error from a FUSE callback, you return it as a negative number
-   (e.g. return -ENOENT). Some things don't work if you don't return the right
-   error codes.
- - Read and write, on success, return the number of bytes they actually read or wrote.
- - You need to implement `getattr` early and make sure it's correct. Nothing works
-   without `getaddr`. The mode for the root directory and `hello.txt` in the starter
-   code are good default values for directories and files respectively.
- - The functions `dirname` and `basename` exist, but may mutate their argument.
- - <https://www.cs.hmc.edu/~geoff/classes/hmc.cs135.201109/homework/fuse/fuse_doc.html>
-
